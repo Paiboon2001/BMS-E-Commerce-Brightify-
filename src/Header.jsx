@@ -1,0 +1,500 @@
+import React, { useState } from "react";
+
+/* ──────────────────────────── SVG Icons ──────────────────────────── */
+
+const LogoIcon = () => (
+  <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+    <rect width="36" height="36" rx="10" fill="url(#logoGrad)" />
+    <path d="M10 5H18.44C21.22 5 23.35 5.57 24.85 6.71C26.34 7.85 27.09 9.47 27.09 11.57C27.09 12.74 26.83 13.75 26.32 14.62C25.81 15.49 25 16.27 23.9 16.96V17.03C25.35 17.68 26.39 18.5 27.02 19.49C27.67 20.48 28 21.74 28 23.27C28 25.75 27.3 27.66 25.9 28.99C24.52 30.33 22.56 31 20.02 31H10V5ZM18.75 15.18C19.57 15.18 20.21 14.92 20.68 14.4C21.17 13.85 21.42 13.13 21.42 12.24C21.42 10.46 20.31 9.57 18.09 9.57H15.64V15.18H18.75ZM19.49 26.43C20.4 26.43 21.11 26.11 21.63 25.47C22.16 24.82 22.43 23.96 22.43 22.87C22.43 21.68 22.12 20.82 21.49 20.3C20.86 19.76 19.83 19.49 18.4 19.49H15.64V26.43H19.49Z" fill="white" />
+    <defs>
+      <linearGradient id="logoGrad" x1="18" y1="0" x2="18" y2="36" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#21BDFF" />
+        <stop offset="1" stopColor="#0485F7" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+const XCloseIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M12 4L4 12M4 4L12 12" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const MicIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M12.667 6.666V8C12.667 10.577 10.578 12.666 8 12.666M3.334 6.666V8C3.334 10.577 5.423 12.666 8 12.666M8 12.666V14.666M5.334 14.666H10.667M8 10C6.896 10 6 9.104 6 8V3.333C6 2.228 6.896 1.333 8 1.333C9.105 1.333 10 2.228 10 3.333V8C10 9.104 9.105 10 8 10Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const CameraIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M15.333 12.667C15.333 13.02 15.193 13.359 14.943 13.61C14.693 13.86 14.354 14 14 14H2C1.646 14 1.307 13.86 1.057 13.61C0.807 13.359 0.667 13.02 0.667 12.667V5.333C0.667 4.98 0.807 4.641 1.057 4.391C1.307 4.14 1.646 4 2 4H4.667L6 2H10L11.333 4H14C14.354 4 14.693 4.14 14.943 4.391C15.193 4.641 15.333 4.98 15.333 5.333V12.667Z" stroke="#1E1E1E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M8 11.333C9.473 11.333 10.667 10.139 10.667 8.667C10.667 7.194 9.473 6 8 6C6.527 6 5.333 7.194 5.333 8.667C5.333 10.139 6.527 11.333 8 11.333Z" stroke="#1E1E1E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const SearchIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M7.333 12.667C10.279 12.667 12.667 10.279 12.667 7.333C12.667 4.388 10.279 2 7.333 2C4.388 2 2 4.388 2 7.333C2 10.279 4.388 12.667 7.333 12.667Z" stroke="#18181B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M14 14L11.134 11.133" stroke="#18181B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const HeartIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path fillRule="evenodd" clipRule="evenodd" d="M11.993 5.136C9.994 2.798 6.66 2.17 4.155 4.31C1.65 6.45 1.297 10.03 3.264 12.56C4.9 14.665 9.85 19.104 11.472 20.541C11.654 20.702 11.744 20.782 11.85 20.814C11.943 20.841 12.044 20.841 12.136 20.814C12.242 20.782 12.333 20.702 12.514 20.541C14.137 19.104 19.087 14.665 20.722 12.56C22.689 10.03 22.38 6.428 19.832 4.31C17.284 2.192 13.993 2.798 11.993 5.136Z" stroke="#18181B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const ShoppingBagIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M16 9V6C16 3.791 14.21 2 12 2C9.791 2 8 3.791 8 6V9M3.592 10.352L2.992 16.752C2.822 18.572 2.736 19.482 3.038 20.184C3.304 20.802 3.768 21.312 4.358 21.634C5.03 22 5.944 22 7.771 22H16.229C18.057 22 18.971 22 19.642 21.634C20.232 21.312 20.697 20.802 20.962 20.184C21.264 19.482 21.179 18.572 21.008 16.752L20.408 10.352C20.264 8.815 20.192 8.047 19.847 7.466C19.542 6.955 19.093 6.545 18.555 6.29C17.944 6 17.173 6 15.629 6H8.371C6.828 6 6.056 6 5.446 6.29C4.908 6.545 4.458 6.955 4.154 7.466C3.808 8.047 3.736 8.815 3.592 10.352Z" stroke="#18181B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const BellIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M15 19C15 20.657 13.657 22 12 22C10.343 22 9 20.657 9 19M13.796 6.239C14.232 5.789 14.5 5.176 14.5 4.5C14.5 3.119 13.38 2 12 2C10.619 2 9.5 3.119 9.5 4.5C9.5 5.176 9.768 5.789 10.203 6.239M18 11.2C18 9.821 17.368 8.498 16.242 7.523C15.117 6.548 13.591 6 12 6C10.408 6 8.882 6.548 7.757 7.523C6.632 8.498 6 9.821 6 11.2C6 13.482 5.434 15.151 4.728 16.345C3.923 17.706 3.521 18.386 3.537 18.549C3.555 18.735 3.588 18.793 3.739 18.904C3.871 19 4.533 19 5.858 19H18.142C19.466 19 20.129 19 20.26 18.904C20.411 18.793 20.445 18.735 20.463 18.549C20.479 18.386 20.076 17.706 19.272 16.345C18.566 15.151 18 13.482 18 11.2Z" stroke="#18181B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const UserLoginIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+    <path d="M2.917 8.75L5.833 5.833V8.167L8.75 5.25M4.667 1.75C4.667 1.75 4.667 1.75 4.667 1.75H9.917C10.527 1.75 10.832 1.75 11.068 1.869C11.276 1.974 11.443 2.141 11.548 2.349C11.667 2.585 11.667 2.89 11.667 3.5V10.5C11.667 11.11 11.667 11.415 11.548 11.651C11.443 11.859 11.276 12.026 11.068 12.131C10.832 12.25 10.527 12.25 9.917 12.25H4.667" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const StoreMenuIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <g clipPath="url(#clip-store-m2)">
+      <path d="M1.333 4.666L4.274 1.726C4.398 1.602 4.545 1.503 4.708 1.435C4.87 1.368 5.044 1.333 5.22 1.333H10.78C10.956 1.333 11.13 1.368 11.293 1.435C11.455 1.503 11.603 1.602 11.727 1.726L14.667 4.666" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M2.667 8V13.333C2.667 13.687 2.807 14.026 3.057 14.276C3.307 14.526 3.646 14.667 4 14.667H12C12.354 14.667 12.693 14.526 12.943 14.276C13.193 14.026 13.333 13.687 13.333 13.333V8" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M10 14.667V12C10 11.647 9.86 11.308 9.61 11.058C9.36 10.808 9.02 10.667 8.667 10.667H7.333C6.98 10.667 6.641 10.808 6.391 11.058C6.14 11.308 6 11.647 6 12V14.667" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M1.333 4.667H14.667" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M14.667 4.667V6.667C14.667 7.02 14.526 7.36 14.276 7.61C14.026 7.86 13.687 8 13.333 8C12.944 7.979 12.572 7.831 12.274 7.58C12.194 7.523 12.098 7.492 12 7.492C11.902 7.492 11.806 7.523 11.727 7.58C11.428 7.831 11.056 7.979 10.667 8C10.277 7.979 9.905 7.831 9.607 7.58C9.527 7.523 9.432 7.492 9.333 7.492C9.235 7.492 9.14 7.523 9.06 7.58C8.762 7.831 8.39 7.979 8 8C7.611 7.979 7.239 7.831 6.94 7.58C6.861 7.523 6.765 7.492 6.667 7.492C6.569 7.492 6.473 7.523 6.394 7.58C6.095 7.831 5.723 7.979 5.333 8C4.944 7.979 4.572 7.831 4.274 7.58C4.194 7.523 4.098 7.492 4 7.492C3.902 7.492 3.806 7.523 3.727 7.58C3.428 7.831 3.056 7.979 2.667 8C2.313 8 1.974 7.86 1.724 7.61C1.474 7.36 1.333 7.02 1.333 6.667V4.667" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+    </g>
+    <defs>
+      <clipPath id="clip-store-m2"><rect width="16" height="16" fill="white" /></clipPath>
+    </defs>
+  </svg>
+);
+
+const UsersCheckIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+    <path d="M9.334 10.5L10.5 11.667L12.834 9.333M7 8.75H4.667C3.58 8.75 3.036 8.75 2.607 8.928C2.036 9.164 1.581 9.619 1.345 10.19C1.167 10.619 1.167 11.163 1.167 12.25M9.042 1.92C9.897 2.266 10.5 3.104 10.5 4.083C10.5 5.063 9.897 5.901 9.042 6.247M7.875 4.083C7.875 5.372 6.831 6.417 5.542 6.417C4.253 6.417 3.209 5.372 3.209 4.083C3.209 2.795 4.253 1.75 5.542 1.75C6.831 1.75 7.875 2.795 7.875 4.083Z" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const DotpointsIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+    <path d="M12.25 7L5.25 7M12.25 3.5L5.25 3.5M12.25 10.5L5.25 10.5M2.917 7C2.917 7.322 2.656 7.583 2.333 7.583C2.011 7.583 1.75 7.322 1.75 7C1.75 6.678 2.011 6.417 2.333 6.417C2.656 6.417 2.917 6.678 2.917 7ZM2.917 3.5C2.917 3.822 2.656 4.083 2.333 4.083C2.011 4.083 1.75 3.822 1.75 3.5C1.75 3.178 2.011 2.917 2.333 2.917C2.656 2.917 2.917 3.178 2.917 3.5ZM2.917 10.5C2.917 10.822 2.656 11.083 2.333 11.083C2.011 11.083 1.75 10.822 1.75 10.5C1.75 10.178 2.011 9.917 2.333 9.917C2.656 9.917 2.917 10.178 2.917 10.5Z" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const ChevronDownIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+    <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const UserCircleIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+    <g clipPath="url(#clip-uc)">
+      <path d="M3.102 11.339C3.456 10.503 4.285 9.917 5.25 9.917H8.75C9.716 9.917 10.544 10.503 10.899 11.339M9.334 5.542C9.334 6.83 8.289 7.875 7 7.875C5.712 7.875 4.667 6.83 4.667 5.542C4.667 4.253 5.712 3.208 7 3.208C8.289 3.208 9.334 4.253 9.334 5.542ZM12.834 7C12.834 10.222 10.222 12.833 7 12.833C3.779 12.833 1.167 10.222 1.167 7C1.167 3.778 3.779 1.167 7 1.167C10.222 1.167 12.834 3.778 12.834 7Z" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+    </g>
+    <defs>
+      <clipPath id="clip-uc"><rect width="14" height="14" fill="white" /></clipPath>
+    </defs>
+  </svg>
+);
+
+const GlobeIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+    <g clipPath="url(#clip-globe2)">
+      <path d="M7 12.833C10.222 12.833 12.834 10.222 12.834 7C12.834 3.778 10.222 1.167 7 1.167C3.779 1.167 1.167 3.778 1.167 7C1.167 10.222 3.779 12.833 7 12.833Z" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M7 1.167C5.502 2.74 4.667 4.828 4.667 7C4.667 9.172 5.502 11.261 7 12.833C8.498 11.261 9.334 9.172 9.334 7C9.334 4.828 8.498 2.74 7 1.167Z" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M1.167 7H12.834" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+    </g>
+    <defs>
+      <clipPath id="clip-globe2"><rect width="14" height="14" fill="white" /></clipPath>
+    </defs>
+  </svg>
+);
+
+const HelpMenuIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+    <g clipPath="url(#clip-help)">
+      <path d="M7 12.833C10.222 12.833 12.834 10.222 12.834 7C12.834 3.778 10.222 1.167 7 1.167C3.779 1.167 1.167 3.778 1.167 7C1.167 10.222 3.779 12.833 7 12.833Z" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M5.303 5.25C5.44 4.86 5.71 4.531 6.067 4.322C6.423 4.113 6.842 4.036 7.249 4.106C7.657 4.176 8.026 4.388 8.292 4.704C8.559 5.02 8.704 5.42 8.704 5.833C8.704 7 6.954 7.583 6.954 7.583" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M7 9.917H7.006" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+    </g>
+    <defs>
+      <clipPath id="clip-help"><rect width="14" height="14" fill="white" /></clipPath>
+    </defs>
+  </svg>
+);
+
+/* ──────────────────────────── Mini Menu (hover animated) ──────────────────────────── */
+
+function MiniMenu({ icon, label, chevron, href = "#" }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <a
+      href={href}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 4,
+        padding: "4px 6px",
+        borderRadius: 8,
+        backgroundColor: hovered ?  "rgba(0, 66, 221, 0.4)" : "#0485f7",
+        color: "#FFFFFF",
+        textDecoration: "none",
+        fontWeight: 500,
+        fontSize: 14,
+        lineHeight: "18px",
+        cursor: "pointer",
+        whiteSpace: "nowrap",
+        
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {icon}
+      <span>{label}</span>
+      {chevron}
+    </a>
+  );
+}
+
+/* ──────────────────────────── Component ──────────────────────────── */
+
+export default function Header({ onLoginClick }) {
+  return (
+    <header style={s.header}>
+      {/* ── Top bar (white card) ── */}
+      <div style={s.topCard}>
+        <div style={s.topRow}>
+          {/* Logo */}
+          <a href="/" style={s.logoLink}>
+            <LogoIcon />
+            <div style={s.logoText}>
+              <span style={s.logoTitle}>BRIGHTIFY</span>
+              <span style={s.logoSub}>E-Commerce by BMS</span>
+            </div>
+          </a>
+
+          {/* Search */}
+          <div style={s.searchWrap}>
+            <div style={s.searchInputArea}>
+              <input
+                type="text"
+                placeholder="ค้นหาสินค้า..."
+                style={s.searchInput}
+              />
+              <button style={s.searchInnerBtn} aria-label="Clear">
+                <XCloseIcon />
+              </button>
+            </div>
+            <div style={s.searchDivider} />
+            <div style={s.searchIcons}>
+              <button style={s.searchIconBtn} aria-label="Microphone">
+                <MicIcon />
+              </button>
+              <button style={s.searchIconBtn} aria-label="Camera">
+                <CameraIcon />
+              </button>
+              <button style={s.searchIconBtn} aria-label="Search">
+                <SearchIcon />
+              </button>
+            </div>
+          </div>
+
+          {/* Action icons */}
+          <div style={s.actions}>
+            <button style={s.iconBtn} aria-label="Wishlist">
+              <HeartIcon />
+            </button>
+            <button style={s.iconBtn} aria-label="Shopping bag">
+              <ShoppingBagIcon />
+            </button>
+            <div style={s.bellWrap}>
+              <button style={s.iconBtn} aria-label="Notifications">
+                <BellIcon />
+              </button>
+              <span style={s.badge}>12</span>
+            </div>
+            <button style={s.loginBtn} onClick={onLoginClick}>
+              <UserLoginIcon />
+              <span>เข้าสู่ระบบ</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Rich menu (blue bar) ── */}
+      <div style={s.richMenu}>
+        {/* Left group */}
+        <div style={s.menuGroup}>
+          <MiniMenu icon={<StoreMenuIcon />} label="สร้างร้านค้า" />
+          <div style={s.menuDivider} />
+          <MiniMenu icon={<UsersCheckIcon />} label="สมัคร Affiliate" />
+          <div style={s.menuDivider} />
+          <MiniMenu icon={<DotpointsIcon />} label="หมวดหมู่" chevron={<ChevronDownIcon />} />
+        </div>
+
+        {/* Right group */}
+        <div style={s.menuGroupRight}>
+          <MiniMenu icon={<UserCircleIcon />} label="สร้างบัญชีใหม่" />
+          <div style={s.menuDivider} />
+          <MiniMenu icon={<GlobeIcon />} label="ภาษาไทย" chevron={<ChevronDownIcon />} />
+          <div style={s.menuDivider} />
+          <MiniMenu icon={<HelpMenuIcon />} label="ช่วยเหลือ" chevron={<ChevronDownIcon />} />
+        </div>
+      </div>
+    </header>
+  );
+}
+
+/* ──────────────────────────── Styles ──────────────────────────── */
+
+const s = {
+  header: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 8,
+    paddingBottom: 8,
+    width: "100%",
+    boxSizing: "border-box",
+    fontFamily: "'Sarabun', sans-serif",
+    backgroundColor: "#0485F7",
+    position: "sticky",
+    top: 0,
+    zIndex: 100,
+  },
+
+  /* Top white card */
+  topCard: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
+    maxWidth: 1200,
+    width: "100%",
+    padding: 14,
+    margin: "0 auto",
+    backgroundColor: "#FFFFFF",
+    borderRadius: "0 0 24px 24px",
+    boxShadow: "0px 4px 12px 0px rgba(0, 118, 223, 1)",
+    boxSizing: "border-box",
+  },
+
+  topRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 24,
+  },
+
+  /* Logo */
+  logoLink: {
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+    textDecoration: "none",
+    flexShrink: 0,
+    width: 220,
+  },
+  logoText: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    gap: 6,
+  },
+  logoTitle: {
+    fontWeight: 800,
+    fontSize: 20,
+    lineHeight: "16.8px",
+    color: "#18181B",
+  },
+  logoSub: {
+    fontWeight: 400,
+    fontSize: 12,
+    lineHeight: "12px",
+    color: "#71717A",
+  },
+
+  /* Search - redesigned */
+  searchWrap: {
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    width: 500,
+    paddingRight: 12,
+    backgroundColor: "#F5F5F5",
+    borderRadius: 8,
+    flexShrink: 1,
+    boxSizing: "border-box",
+  },
+  searchInputArea: {
+    display: "flex",
+    alignItems: "center",
+    flex: 1,
+    height: 36,
+    paddingLeft: 12,
+  },
+  searchInput: {
+    flex: 1,
+    height: "100%",
+    border: "none",
+    background: "none",
+    fontSize: 14,
+    lineHeight: "18.2px",
+    color: "#18181B",
+    fontFamily: "'Sarabun', sans-serif",
+    outline: "none",
+  },
+  searchInnerBtn: {
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    padding: 0,
+    display: "flex",
+    alignItems: "center",
+    flexShrink: 0,
+  },
+  searchDivider: {
+    width: 1,
+    height: 36,
+    backgroundColor: "#D9D9D9",
+    flexShrink: 0,
+  },
+  searchIcons: {
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+  },
+  searchIconBtn: {
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    padding: 0,
+    display: "flex",
+    alignItems: "center",
+  },
+
+  /* Action icons */
+  actions: {
+    display: "flex",
+    alignItems: "center",
+    gap: 24,
+    flexShrink: 0,
+  },
+  iconBtn: {
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    padding: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 24,
+    height: 24,
+  },
+  bellWrap: {
+    position: "relative",
+    display: "flex",
+  },
+  badge: {
+    position: "absolute",
+    top: -4,
+    right: -8,
+    minWidth: 14,
+    height: 14,
+    padding: "0 3px",
+    borderRadius: 100,
+    backgroundColor: "#FF0000",
+    color: "#FFFFFF",
+    fontSize: 8,
+    fontWeight: 500,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    lineHeight: 1,
+  },
+  loginBtn: {
+    display: "flex",
+    alignItems: "center",
+    gap: 4,
+    padding: "8px 10px",
+    border: "none",
+    borderRadius: 10,
+    backgroundColor: "#0485F7",
+    color: "#FFFFFF",
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: "21px",
+    cursor: "pointer",
+    whiteSpace: "nowrap",
+    width: 100,
+    fontFamily: "'Sarabun', sans-serif",
+  },
+
+  /* Rich menu */
+  richMenu: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    maxWidth: 1200,
+    width: "100%",
+    margin: "0 auto",
+    boxSizing: "border-box",
+  },
+  menuGroup: {
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+  },
+  menuGroupRight: {
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    gap: 12,
+  },
+  menuItem: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 4,
+    color: "#FFFFFF",
+    textDecoration: "none",
+    fontWeight: 500,
+    fontSize: 14,
+    lineHeight: "18px",
+    cursor: "pointer",
+    whiteSpace: "nowrap",
+  },
+  menuItemPill: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 4,
+    padding: "4px 6px",
+    borderRadius: 8,
+    backgroundColor: "#0485F7",
+    color: "#FFFFFF",
+    textDecoration: "none",
+    fontWeight: 500,
+    fontSize: 14,
+    lineHeight: "18px",
+    cursor: "pointer",
+    whiteSpace: "nowrap",
+  },
+  menuDivider: {
+    width: 0,
+    height: 18.5,
+    borderLeft: "2px solid rgba(255, 255, 255, 0.3)",
+  },
+};

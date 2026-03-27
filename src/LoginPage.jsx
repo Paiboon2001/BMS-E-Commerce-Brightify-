@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+const BASE = import.meta.env.BASE_URL;
+
 /* ──────────────────────────── Icons ──────────────────────────── */
 
 const LogoIcon = () => (
@@ -171,11 +173,11 @@ function StepLogin({ onSwitch }) {
         </div>
         <div style={s.socialRow}>
           <button style={s.socialBtn}>
-            <img src="/facebook-logo.svg" alt="Facebook" width={24} height={24} style={{ borderRadius: "50%" }} />
+            <img src={`${BASE}facebook-logo.svg`} alt="Facebook" width={24} height={24} style={{ borderRadius: "50%" }} />
             <span>Facebook</span>
           </button>
           <button style={s.socialBtn}>
-            <img src="/google-logo.svg" alt="Google" width={24} height={24} />
+            <img src={`${BASE}google-logo.svg`} alt="Google" width={24} height={24} />
             <span>Google</span>
           </button>
         </div>
@@ -220,11 +222,11 @@ function StepSignIn({ onSwitch }) {
         </div>
         <div style={s.socialRow}>
           <button style={s.socialBtn}>
-            <img src="/facebook-logo.svg" alt="Facebook" width={24} height={24} style={{ borderRadius: "50%" }} />
+            <img src={`${BASE}facebook-logo.svg`} alt="Facebook" width={24} height={24} style={{ borderRadius: "50%" }} />
             <span>Facebook</span>
           </button>
           <button style={s.socialBtn}>
-            <img src="/google-logo.svg" alt="Google" width={24} height={24} />
+            <img src={`${BASE}google-logo.svg`} alt="Google" width={24} height={24} />
             <span>Google</span>
           </button>
         </div>
@@ -371,7 +373,7 @@ const s = {
     fontFamily: "'Sarabun', sans-serif",
     display: "flex",
     flexDirection: "column",
-    backgroundImage: "url(/BG_login.png)",
+    backgroundImage: `url(${BASE}BG_login.png)`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",

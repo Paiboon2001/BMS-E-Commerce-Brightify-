@@ -1,2 +1,2 @@
-# BMS-E-Commerce-Brightify-
+# BMS-E-Commerce-Brightify
 non
